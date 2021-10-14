@@ -16,6 +16,11 @@ export const tasks = [
     isCompleted: false,
     name: "Mejorar el UI usando CSS",
   },
+  {
+    id: "4",
+    isCompleted: false,
+    name: "Modificar la estructura del proyecto(UI y lógica) para que el Task tenga los siguientes campos: [name, description,assignedTo, dueDate, [status(TODO, IN_PROGRESS,REVIEW, DONE)]",
+  }
 ];
 
 const initialData = { tasks };
