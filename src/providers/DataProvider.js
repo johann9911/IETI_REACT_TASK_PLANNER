@@ -3,18 +3,18 @@ import React, { useState } from "react";
 export const tasks = [
   {
     id: "1",
-    isCompleted: true,
-    name: "Learn React with Ada",
+    isCompleted: false,
+    name: "Arreglar el checklist del edit",
   },
   {
     id: "2",
     isCompleted: false,
-    name: "Learn Hooks",
+    name: "Limpiar el campo del create task cuando se crea tarea",
   },
   {
     id: "3",
-    isCompleted: true,
-    name: "Keep on Keeping on",
+    isCompleted: false,
+    name: "Mejorar el UI usando CSS",
   },
 ];
 
