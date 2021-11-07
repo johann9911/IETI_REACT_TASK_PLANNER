@@ -1,67 +1,41 @@
-import { useState } from "react";
-import { useData } from "../providers/DataProvider";
+import { useState, useContext, useEffect } from "react";
 import { TaskItem } from "./TaskItem";
+import UserContext from "../services/context/UserContext";
+import CreateTask from "./CreateTask"
 
 export const TaskList = () => {
-  const { data, setData } = useData();
-  const [textValue, setTextValue] = useState("");
 
-  const tasks = data.tasks;
+  const { GetToken, SetToken, ServiceRest } = useContext(UserContext)
+  const [tasks, setTasks] = useState([]);
 
-  const handleTaskChange = (index) => () => {
-    const newTasks = tasks.map((task, i) => {
-      if (i === index) {
-        return { ...task, isCompleted: !task.isCompleted };
-      }
-
-      return task;
+  useEffect(() => {
+    ServiceRest("GET", `api/task/all`, "", (data) => {
+      setTasks(data)
     });
+  }, []);
 
-    setData((prev) => ({ ...prev, tasks: newTasks }));
-  };
+  const newTask = (task) => {
+    const newTask = [...tasks, task];
+    setTasks(newTask);
+  }
 
-  const newTask = (name) => {
-    const newTask = {
-      isCompleted: false,
-      name: name,
-    };
-    setData((prev) => ({ ...prev, tasks: [...tasks, newTask] }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    newTask(textValue);
-  };
-
-  const handleTextChange = (event) => {
-    const value = event.target.value;
-    setTextValue(value);
-  };
 
   return (
     <article>
-      <form onSubmit={handleSubmit}>
-        <input
-          value={textValue}
-          onChange={handleTextChange}
-          type="text"
-          placeholder="Task name"
-        />
-        <button>Create Task</button>
-      </form>
+      <CreateTask addNewTask={newTask} />
+      {tasks.map((task, index) => {
+        return (
+          <TaskItem
+            id={task.id}
+            taskName={task.name}
+            taskDescription={task.description}
+            taskStatus={task.status}
+            taskAssignedTo={task.assignedTo}
+            taskDueDate={task.dueDate}
+          />
+        );
+      })}
 
-      <ul>
-        {tasks.map((task, index) => {
-          return (
-            <TaskItem
-              id={task.id}
-              isChecked={task.isCompleted}
-              taskName={task.name}
-              onTaskChange={handleTaskChange(index)}
-            />
-          );
-        })}
-      </ul>
     </article>
   );
 };
