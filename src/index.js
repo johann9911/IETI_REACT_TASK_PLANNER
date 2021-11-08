@@ -4,12 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { DataProvider } from "./providers/DataProvider";
+import { ChakraProvider } from "@chakra-ui/react";
+import ServiceApi from './services/ServiceApi';
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataProvider>
-      <App />
-    </DataProvider>
+    <ChakraProvider>
+      <DataProvider>
+        <ServiceApi>
+          <App />
+        </ServiceApi>
+      </DataProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
