@@ -9,7 +9,7 @@ export const TaskItem = ({ id, taskName, taskDescription, taskStatus, taskAssign
   };
 
   const handleClick = () => {
-    const url = `/task/${id}`;
+    const url = `/task/${id}/${taskName}`;
     history.push(url);
   };
   

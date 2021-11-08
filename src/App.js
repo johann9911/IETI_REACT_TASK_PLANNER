@@ -11,7 +11,7 @@ function App() {
         <Route path="/" exact>
           <Login />
         </Route>
-        <Route path="/task/:taskId" exact>
+        <Route path="/task/:taskId/:name" exact>
           <TaskForm />
         </Route>
         <Route path="/tasks" exact>
